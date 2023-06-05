@@ -17,7 +17,7 @@ class LaionDataset_LLM(Dataset):
         if split not in ['train']:
             raise ValueError("split should be in ['train']")
 
-        self.image_path_prefix = "/GPFS/public/laion_coco_metadata_600m/images/"
+        self.image_path_prefix = "/GPFS/data/yikunliu/laion_cir_llm/"
         with open(data_file_path + "/files/laion_llm_info.json") as f:
             self.image_ids_map = json.load(f)
         self.reference_image_ids = list(self.image_ids_map.keys())

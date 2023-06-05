@@ -27,6 +27,7 @@ class CIRRDataset(Dataset):
                         - (pair_id, reference_name, rel_caption, group_members) when split == test1
         :param preprocess: function which preprocesses the image
         """
+        self.cirr_path_prefix = "/GPFS/data/yikunliu"
         self.preprocess = preprocess
         self.mode = mode
         self.split = split
@@ -39,11 +40,11 @@ class CIRRDataset(Dataset):
             raise ValueError("mode should be in ['relative', 'classic']")
 
         # get triplets made by (reference_image, target_image, relative caption)
-        with open(f'/GPFS/data/yikunliu/CIRR/cirr/captions/cap.rc2.{split}.json') as f:
+        with open(f'{self.cirr_path_prefix}/CIRR/cirr/captions/cap.rc2.{split}.json') as f:
             self.triplets = json.load(f)
 
         # get a mapping from image name to relative path
-        with open(f'/GPFS/data/yikunliu/CIRR/cirr/image_splits/split.rc2.{split}.json') as f:
+        with open(f'{self.cirr_path_prefix}/CIRR/cirr/image_splits/split.rc2.{split}.json') as f:
             self.name_to_relpath = json.load(f)
 
         print(f"CIRR {split} dataset in {mode} mode initialized")
@@ -56,28 +57,28 @@ class CIRRDataset(Dataset):
                 rel_caption = self.triplets[index]['caption'].lower()
 
                 if self.split == 'train':
-                    reference_image_path = "/GPFS/data/yikunliu/NLVR2/images/" + self.name_to_relpath[reference_name][2:]
+                    reference_image_path = f"{self.cirr_path_prefix}/NLVR2/images/" + self.name_to_relpath[reference_name][2:]
                     reference_image = self.preprocess(PIL.Image.open(reference_image_path).convert('RGB'))
                     target_hard_name = self.triplets[index]['target_hard']
-                    target_image_path = "/GPFS/data/yikunliu/NLVR2/images/" + self.name_to_relpath[target_hard_name][2:]
+                    target_image_path = f"{self.cirr_path_prefix}/NLVR2/images/" + self.name_to_relpath[target_hard_name][2:]
                     target_image = self.preprocess(PIL.Image.open(target_image_path).convert("RGB"))
                     return reference_image, target_image, rel_caption
 
                 elif self.split == 'val':
-                    reference_image_path = "/GPFS/data/yikunliu/NLVR2/images/" + self.name_to_relpath[reference_name][2:]
+                    reference_image_path = f"{self.cirr_path_prefix}/NLVR2/images/" + self.name_to_relpath[reference_name][2:]
                     reference_image = self.preprocess(PIL.Image.open(reference_image_path).convert('RGB'))
                     target_hard_name = self.triplets[index]['target_hard']
                     return reference_name, target_hard_name, rel_caption, group_members, reference_image
 
                 elif self.split == 'test1':
-                    reference_image_path = "/GPFS/data/yikunliu/NLVR2/images/" + self.name_to_relpath[reference_name][2:]
+                    reference_image_path = f"{self.cirr_path_prefix}/NLVR2/images/" + self.name_to_relpath[reference_name][2:]
                     reference_image = self.preprocess(PIL.Image.open(reference_image_path).convert('RGB'))
                     pair_id = self.triplets[index]['pairid']
                     return pair_id, reference_name, rel_caption, group_members, reference_image 
 
             elif self.mode == 'classic':
                 image_name = list(self.name_to_relpath.keys())[index]
-                image_path = "/GPFS/data/yikunliu/NLVR2/images/" + self.name_to_relpath[image_name][2:]
+                image_path = f"{self.cirr_path_prefix}/NLVR2/images/" + self.name_to_relpath[image_name][2:]
                 im = PIL.Image.open(image_path).convert("RGB")
                 image = self.preprocess(im)
                 return image_name, image

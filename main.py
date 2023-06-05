@@ -21,7 +21,7 @@ def setup_seed(seed):
 
 
 def main(cfg):
-    # setup_seed(1024)
+    # setup_seed(1024) 
     
     # get the corresponding model 
     model = get_model(cfg)
