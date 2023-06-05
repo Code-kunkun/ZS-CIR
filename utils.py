@@ -22,6 +22,8 @@ def set_grad(cfg, model):
         if cfg.model_name.startswith("blip"):
             for param in model.pretrained_model.visual_encoder.parameters():
                 param.requires_grad = False
+            for param in model.pretrained_model.vision_proj.parameters():
+                param.requires_grad = False 
         elif cfg.model_name.startswith('clip'):
             for param in model.pretrained_model.visual.parameters():
                 param.requires_grad = False

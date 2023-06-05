@@ -32,10 +32,10 @@ def generate_cirr_test_submissions(file_name, model, preprocess, device):
     group_submission.update(pairid_to_group_predictions)
 
     print(f"Saving CIRR test predictions")
-    with open(f"/GPFS/rhome/yikunliu/graduation_project/submission/recall_submission_{file_name}.json", 'w+') as file:
+    with open(f"./submission/recall_submission_{file_name}.json", 'w+') as file:
         json.dump(submission, file, sort_keys=True)
 
-    with open(f"/GPFS/rhome/yikunliu/graduation_project/submission/recall_subset_submission_{file_name}.json", 'w+') as file:
+    with open(f"./submission/recall_subset_submission_{file_name}.json", 'w+') as file:
         json.dump(group_submission, file, sort_keys=True)
 
 

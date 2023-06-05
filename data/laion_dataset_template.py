@@ -17,7 +17,7 @@ class LaionDataset_Template(Dataset):
         if split not in ['train']:
             raise ValueError("split should be in ['train']")
 
-        self.image_path_prefix = "/GPFS/data/yikunliu/laion_cir_template/"
+        self.image_path_prefix = "/GPFS/public/laion_coco_metadata_600m/images/"
         with open(data_file_path + "/files/laion_template_info.json") as f:
             self.triplets = json.load(f)
 
