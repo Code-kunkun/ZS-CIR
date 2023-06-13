@@ -1,6 +1,6 @@
 # Zero-shot Composed Text-Image Retrieval
 
-This repository contains the official Pytorch implementation of TransAgg: xxx
+This repository contains the official Pytorch implementation of TransAgg: [https://arxiv.org/abs/2306.07272](https://arxiv.org/abs/2306.07272)
 
 ## Environment
 Create the environment for running our code as follow:
@@ -48,6 +48,13 @@ python cirr_test_submission.py
 
 ## Citation
 if you use this code for your research or project, please cite:
+
+    @article{liu2023zeroshot,
+      title={Zero-shot Composed Text-Image Retrieval}, 
+      author={Yikun Liu and Jiangchao Yao and Ya Zhang and Yanfeng Wang and Weidi Xie},
+      year={2023},
+      journal={arXiv preprint arXiv:2306.07272},
+    }
 
 
 ## Acknowledgements
